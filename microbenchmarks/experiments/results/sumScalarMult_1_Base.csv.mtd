@@ -1,0 +1,11 @@
+{
+    "data_type": "frame",
+    "schema": "FP64,INT32,",
+    "rows": 10,
+    "cols": 2,
+    "format": "csv",
+    "author": "janniklindemann",
+    "header": false,
+    "sep": ",",
+    "created": "2025-01-14 14:10:52 CET"
+}
