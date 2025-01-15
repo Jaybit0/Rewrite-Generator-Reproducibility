@@ -1,7 +1,7 @@
-test_name = "sumScalarMult"
+test_name = "sumScalarMultRow"
 
 # Modes: 'Gen', 'Std', 'Base'
-mode = "BaseReorg"
+mode = "Base"
 
 # Sparsity of the matrices (e.g. 1, 0.01)
 sparsity=0.01
@@ -32,7 +32,7 @@ for (var in seq(step_n, step_n*nums, step_n)) {
     print("Var: " + var)
 
     for (i in 1:warmup_runs) {
-        R = sum(a * (M1 * M2))
+        R = sum(a * M1 * M2)
 
         print("Warump: " + i)
     }
@@ -49,7 +49,7 @@ for (var in seq(step_n, step_n*nums, step_n)) {
 
     for (i in 1:benchmark_runs) {
         t = time()
-        R = sum(a * (M1 * M2))
+        R = sum(a * M1 * M2)
         t1 = time()
         total_time = total_time + (t1 - t)
         #print("Run " + i + ": " + R)

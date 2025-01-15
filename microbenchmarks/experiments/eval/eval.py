@@ -4,12 +4,12 @@ import matplotlib.ticker as ticker
 
 # This script must be executed from this directory
 
-test_name = 'multInv_0.01'
+test_name = 'sumScalarMult_1'
 
 include_gen = True
 include_std = True
 include_base = True
-include_additional = []
+include_additional = ['GenBase']
 log_y = False
 log_x = False
 granular_grid = True

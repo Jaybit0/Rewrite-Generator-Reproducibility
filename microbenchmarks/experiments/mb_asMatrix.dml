@@ -1,0 +1,37 @@
+test_name = "sumScalarMult"
+
+# Modes: 'Gen', 'Std', 'Base'
+mode=$1
+
+# Sparsity of the matrices (e.g. 1, 0.01)
+sparsity=$2
+var=$3
+
+warmup_runs = 5
+benchmark_runs = 1000
+
+
+###### BEGIN TEST ######
+
+
+for (i in 1:warmup_runs) {
+    a = as.scalar(rand())^2
+    b = as.scalar(rand())^2
+    R = as.matrix(a)-b
+}
+
+total_time = 0
+t = time()
+for (i in 1:benchmark_runs) {
+    a = as.scalar(rand())^2
+    b = as.scalar(rand())^2
+    t = time()
+    R = as.matrix(a)-b
+    t1 = time()
+    total_time += (t1-t)/1000000
+}
+print(as.scalar(R[1,1]))
+
+print("==========")
+print(mode + " " + sparsity + " " + var)
+print("Result: " + total_time/benchmark_runs)

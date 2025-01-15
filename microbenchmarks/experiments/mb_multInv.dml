@@ -1,68 +1,37 @@
-test_name = "multInv"
+test_name = "sumScalarMult"
 
 # Modes: 'Gen', 'Std', 'Base'
-mode = "Base"
+mode=$1
 
 # Sparsity of the matrices (e.g. 1, 0.01)
-sparsity=1
+sparsity=$2
+var=$3
 
-warmup_runs = 3
+warmup_runs = 5
 benchmark_runs = 20
-
-step_n = 1000000
-nums = 10
-
-base_path = "/Users/janniklindemann/Dev/Rewrite-Generator-Reproducibility/microbenchmarks/experiments/results/"
 
 
 ###### BEGIN TEST ######
 
-times = matrix(0, rows=1, cols=nums)
-vars = matrix(0, rows=1, cols=nums)
+M1 = rand(rows=3, cols=var, sparsity=sparsity)^2
+M2 = rand(rows=3, cols=var, sparsity=sparsity)^2
 
-idx = 1
-
-for (var in seq(step_n, step_n*nums, step_n)) {
-    # Avoid scalar multiplication fusion by applying ^2 on the random matrix
-    M1 = rand(rows=var, cols=3, sparsity=sparsity)^2
-    M2 = rand(rows=var, cols=3, sparsity=sparsity)^2
-    print("Var: " + var)
-
-    for (i in 1:warmup_runs) {
-        R = (1/M1)*M2
-
-        print("Warump: " + i)
-    }
+for (i in 1:warmup_runs) {
+    R = (1 / M1) * M2
 }
 
-for (var in seq(step_n, step_n*nums, step_n)) {
-    print("===== CONF " + var + " =====")
-    total_time = 0
-
-    a = as.scalar(rand())
-    # Avoid scalar multiplication fusion by applying cos on the random matrix
-    M1 = rand(rows=var, cols=3, sparsity=sparsity)^2
-    M2 = rand(rows=var, cols=3, sparsity=sparsity)^2
-
-    for (i in 1:benchmark_runs) {
-        t = time()
-        R = (1/M1)*M2
-        t1 = time()
-        total_time = total_time + (t1 - t)
-    }
-
-    atime = total_time / 1000000
-
-    times[1, idx] = atime
-    vars[1, idx] = var
-
-    idx = idx + 1
+total_time = 0
+t = time()
+for (i in 1:benchmark_runs) {
+    M1 = rand(rows=3, cols=var, sparsity=sparsity)^2
+    M2 = rand(rows=3, cols=var, sparsity=sparsity)^2
+    t = time()
+    R = (1 / M1) * M2
+    t1 = time()
+    total_time += (t1-t)/1000000
 }
+print(as.scalar(R[1,1]))
 
-result = as.frame(t(rbind(times, vars)))
-
-write(result, base_path + test_name + "_" + sparsity + "_" + mode + ".csv", format="csv")
-
-print(toString(R[1,1]))
-print(toString(result))
-print("total time: " + toString(sum(times)) + "ms")
+print("==========")
+print(mode + " " + sparsity + " " + var)
+print("Result: " + total_time/benchmark_runs)
