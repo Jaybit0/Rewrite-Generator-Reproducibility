@@ -3,7 +3,7 @@ import numpy as np
 import pandas as pd
 import matplotlib.ticker as ticker
 
-test_name = 'transposeMM'
+test_name = 'multInv'
 sparsity = 0.01
 save = True
 
@@ -12,7 +12,7 @@ var_order = [1000, 5000, 10000, 1000000, 5000000, 10000000]
 #mode_order = ['Std', 'Gen', 'Base', 'GenBase']
 mode_order = ['Std', 'Gen']
 include = ['Std', 'Gen']
-format = "K^2"
+format = "M"
 
 
 

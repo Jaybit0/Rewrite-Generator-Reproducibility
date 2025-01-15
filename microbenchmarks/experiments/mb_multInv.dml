@@ -13,7 +13,7 @@ benchmark_runs = 20
 
 ###### BEGIN TEST ######
 
-M1 = rand(rows=3, cols=var, sparsity=sparsity)^2
+M1 = rand(rows=3, cols=var, sparsity=1)^2
 M2 = rand(rows=3, cols=var, sparsity=sparsity)^2
 
 for (i in 1:warmup_runs) {
@@ -23,7 +23,7 @@ for (i in 1:warmup_runs) {
 total_time = 0
 t = time()
 for (i in 1:benchmark_runs) {
-    M1 = rand(rows=3, cols=var, sparsity=sparsity)^2
+    M1 = rand(rows=3, cols=var, sparsity=1)^2
     M2 = rand(rows=3, cols=var, sparsity=sparsity)^2
     t = time()
     R = (1 / M1) * M2
