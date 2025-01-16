@@ -4,7 +4,7 @@ import pandas as pd
 import matplotlib.ticker as ticker
 
 test_name = 'multInv'
-sparsity = 0.01
+sparsity = 1
 save = True
 
 # Sort the data based on the desired order
