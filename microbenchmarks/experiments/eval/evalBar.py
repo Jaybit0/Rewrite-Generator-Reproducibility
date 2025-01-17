@@ -3,8 +3,8 @@ import numpy as np
 import pandas as pd
 import matplotlib.ticker as ticker
 
-test_name = 'multInv'
-sparsity = 1
+test_name = 'constFold'
+sparsity = 0.01
 save = True
 
 # Sort the data based on the desired order
@@ -15,7 +15,7 @@ include = ['Std', 'Gen']
 format = "M"
 figsize = (6, 6)
 margin_left = 0.17
-fixed_maximum = 100
+fixed_maximum = 1000
 legend_loc = 'upper left'
 
 
