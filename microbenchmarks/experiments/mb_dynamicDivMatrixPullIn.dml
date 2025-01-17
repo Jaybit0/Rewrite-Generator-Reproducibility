@@ -1,0 +1,42 @@
+# Modes: 'Gen', 'Std', 'Base'
+mode=$1
+
+# Sparsity of the matrices (e.g. 1, 0.01)
+sparsity=$2
+cols=$3
+
+rows = 3
+
+warmup_runs = 5
+benchmark_runs = 20
+
+data_dir = "../../data/dml_data/"
+
+print(rows)
+print(cols)
+
+
+###### BEGIN TEST ######
+
+a = as.scalar(rand())^2
+M1 = read(data_dir + "sp_" + sparsity + "_" + rows + "x" + cols + "_1.csv")
+#M2 = read(data_dir + "sp_" + sparsity + "_" + rows + "x" + cols + "_2.csv")
+M2 = rand(rows=rows, cols=cols)^2
+
+for (i in 1:warmup_runs) {
+    R = M1 * (a / M2)
+}
+
+total_time = 0
+
+for (i in 1:benchmark_runs) {
+    t = time()
+    R = M1 * (a / M2)
+    t1 = time()
+    total_time += (t1-t)/1000000
+}
+
+print(lineage(R))
+
+print("==========")
+print("Result: " + total_time/benchmark_runs)

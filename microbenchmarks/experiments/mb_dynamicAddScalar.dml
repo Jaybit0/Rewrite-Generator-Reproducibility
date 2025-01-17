@@ -20,7 +20,7 @@ print(cols)
 
 a = as.scalar(rand())
 M1 = read(data_dir + "sp_" + sparsity + "_" + rows + "x" + cols + "_1.csv")
-M2 = read(data_dir + "sp_" + sparsity + "_" + rows + "x" + cols + "_1.csv")
+M2 = read(data_dir + "sp_" + sparsity + "_" + rows + "x" + cols + "_2.csv")
 
 for (i in 1:warmup_runs) {
     R = (a+M1)-M2

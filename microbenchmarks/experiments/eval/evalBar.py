@@ -3,24 +3,26 @@ import numpy as np
 import pandas as pd
 import matplotlib.ticker as ticker
 
-test_name = 'dynamicAddScalar'
-sparsity = 0.01
-rows = 10000000
+test_name = 'transposeMMSkew'
+sparsity = 1
+rows = 4000
 # Either rows or sparsity
-var_rows = True 
+var_rows = False 
 save = True
 
 # Sort the data based on the desired order
-var_order = [0.01, 0.001, 0.0001, 1000, 5000, 10000, 1000000, 5000000, 10000000]
+var_order = [0.1, 0.01, 0.001, 0.0001, 1000, 2000, 3000, 4000, 5000, 10000, 1000000, 5000000, 10000000]
 #mode_order = ['Std', 'Gen', 'Base', 'GenBase']
 mode_order = ['Std', 'Gen']
 include = ['Std', 'Gen']
-format = "sp"
+format = "K"
 figsize = (6, 6)
 margin_left = 0.17
-fixed_maximum = 100
-legend_loc = 'upper left'
+fixed_maximum = 3000
+legend_loc = 'upper right'
 
+fontsize_small = 18
+fontsize_big = 20
 
 
 ####################
@@ -69,14 +71,18 @@ for i, mode in enumerate(pivoted_data.columns):
 
 # Format the plot
 plt.xticks(positions + bar_width * (len(pivoted_data.columns) / 2 - 0.5), pivoted_data.index)
-plt.xlabel('Data Size', fontsize=18)
-plt.ylabel('Time [ms]', fontsize=18)
+
+if var_rows:
+    plt.xlabel('Sparsity', fontsize=fontsize_big)
+else:
+    plt.xlabel('Data Size', fontsize=fontsize_big)
+plt.ylabel('Time [ms]', fontsize=fontsize_big)
 plt.legend(title='MODE')
 plt.yscale('log')
 plt.ylim(0.1, fixed_maximum)
-plt.legend(fontsize=16, loc=legend_loc)  # Add a legend to distinguish the two lines
-plt.xticks(fontsize=16)
-plt.yticks(fontsize=16)
+plt.legend(fontsize=fontsize_small, loc=legend_loc)  # Add a legend to distinguish the two lines
+plt.xticks(fontsize=fontsize_small)
+plt.yticks(fontsize=fontsize_small)
 
 # Customize the x-axis ticks to show formatted labels
 formatted_labels = [formatting(var, None) for var in pivoted_data.index]
@@ -86,6 +92,6 @@ fig = plt.gcf()  # Get the current figure
 fig.subplots_adjust(left=margin_left)  # Increase the left margin to make space for the y-axis label
 
 if save:
-    plt.savefig("../figuresMB/" + test_name + "_" + str(sparsity) + ".pdf")
+    plt.savefig("../figuresMB/" + test_name + "_" + suffix + ".pdf")
 
 plt.show()

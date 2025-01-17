@@ -13,23 +13,22 @@ benchmark_runs = 20
 
 ###### BEGIN TEST ######
 
+M1 = rand(rows=3, cols=var)^2
+M2 = rand(rows=3, cols=var)^2
+
 for (i in 1:warmup_runs) {
-    A = rand(rows=var, cols=3, sparsity=sparsity)^2
-    B = rand(rows=var, cols=3, sparsity=sparsity)^2
-    R = t(t(B)%*%A)
+    R = t(t(M1)%*%M2)
 }
 
 total_time = 0
 t = time()
 for (i in 1:benchmark_runs) {
-    A = rand(rows=var, cols=3, sparsity=sparsity)^2
-    B = rand(rows=var, cols=3, sparsity=sparsity)^2
     t = time()
-    R = t(t(B)%*%A)
+    R = t(t(M1)%*%M2)
     t1 = time()
     total_time += (t1-t)/1000000
 }
-print(as.scalar(R[1,1]))
+print(lineage(R))
 
 print("==========")
 print(mode + " " + sparsity + " " + var)

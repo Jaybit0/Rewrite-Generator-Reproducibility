@@ -1,0 +1,10 @@
+{
+    "data_type": "matrix",
+    "value_type": "double",
+    "rows": 4000,
+    "cols": 4000,
+    "nnz": 1601160,
+    "format": "text",
+    "author": "janniklindemann",
+    "created": "2025-01-17 18:41:50 CET"
+}
