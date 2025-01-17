@@ -6,7 +6,7 @@ mode = "Gen"
 # Sparsity of the matrices (e.g. 1, 0.01)
 sparsity=0.01
 
-warmup_runs = 3
+warmup_runs = 5
 benchmark_runs = 20
 
 step_n = 1000000

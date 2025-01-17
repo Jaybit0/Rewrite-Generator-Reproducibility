@@ -16,6 +16,9 @@ if [[ $SQUARED == "sq" ]]; then
     VAR_LIST=(1000 5000 10000)  # Replace with your list of integers
 elif [[ $SQUARED == "sgl" ]]; then
     VAR_LIST=(1)
+elif [[ $SQUARED == "sparsity" ]]; then
+    VAR_LIST=(0.01 0.001 0.0001)
+    VARIATE_SPARSITY=true
 else
     VAR_LIST=(1000000 5000000 10000000)  # Replace with your list of integers
 fi
@@ -43,8 +46,14 @@ for MODE in "${MODES[@]}"; do
 
   # Loop through the list of integers and run the program
   for VAR in "${VAR_LIST[@]}"; do
-    echo "Running: systemds $PROGRAM -config "$CONFIG" $ADD_ARG -exec singlenode -args $MODE $SPARSITY $VAR"
-    OUTPUT=$(systemds "$PROGRAM" -config "$CONFIG" $ADD_ARG -exec singlenode -args "$MODE" "$SPARSITY" "$VAR")
+    # Check if vary sparsity
+    if [[ $VARIATE_SPARSITY == true ]]; then
+      echo "Running: systemds $PROGRAM -config "$CONFIG" $ADD_ARG -exec singlenode -args $MODE $VAR $SPARSITY"
+    OUTPUT=$(systemds "$PROGRAM" -config "$CONFIG" $ADD_ARG -exec singlenode -args "$MODE" "$VAR" $SPARSITY)
+    else
+      echo "Running: systemds $PROGRAM -config "$CONFIG" $ADD_ARG -exec singlenode -args $MODE $SPARSITY $VAR"
+      OUTPUT=$(systemds "$PROGRAM" -config "$CONFIG" $ADD_ARG -exec singlenode -args "$MODE" "$SPARSITY" "$VAR")
+    fi
 
     # Process the output and extract "Result:" lines
     while read -r LINE; do

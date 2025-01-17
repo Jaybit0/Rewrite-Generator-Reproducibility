@@ -1,0 +1,18 @@
+sparsities = matrix(0, rows=3, cols=1)
+sparsities[1,1] = 0.01
+sparsities[2,1] = 0.001
+sparsities[3,1] = 0.0001
+
+rows = 3
+cols = 10000000
+ninstances = 3
+
+for (i in 1:nrow(sparsities)) {
+    sp = as.scalar(sparsities[i,1])
+
+    for (n in 1:ninstances) {
+        D = rand(rows=3, cols=10000000, sparsity=sp)
+        path = "./dml_data/sp_" + sp + "_" + rows + "x" + cols + "_" + n + ".csv"
+        write(D, path)
+    }
+}

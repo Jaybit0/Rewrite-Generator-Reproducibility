@@ -3,19 +3,22 @@ import numpy as np
 import pandas as pd
 import matplotlib.ticker as ticker
 
-test_name = 'constFold'
+test_name = 'dynamicAddScalar'
 sparsity = 0.01
+rows = 10000000
+# Either rows or sparsity
+var_rows = True 
 save = True
 
 # Sort the data based on the desired order
-var_order = [1000, 5000, 10000, 1000000, 5000000, 10000000]
+var_order = [0.01, 0.001, 0.0001, 1000, 5000, 10000, 1000000, 5000000, 10000000]
 #mode_order = ['Std', 'Gen', 'Base', 'GenBase']
 mode_order = ['Std', 'Gen']
 include = ['Std', 'Gen']
-format = "M"
+format = "sp"
 figsize = (6, 6)
 margin_left = 0.17
-fixed_maximum = 1000
+fixed_maximum = 100
 legend_loc = 'upper left'
 
 
@@ -31,9 +34,16 @@ elif format == "M":
     formatting = lambda x, _: f'3x{int(x/1_000_000)}M'
 elif format == "M^2":
     formatting = lambda x, _: f'{int(x/1_000_000)}Mx{int(x/1_000_000)}M'
+elif format == "sp":
+    formatting = lambda x, _: f'{x}'
 
 # Read dataframe
-data = pd.read_csv(f'../resultsMB/mb_{test_name}_{sparsity}.csv')
+if var_rows:
+    suffix = str(rows)
+else:
+    suffix = str(sparsity)
+data = pd.read_csv(f'../resultsMB/mb_{test_name}_{suffix}.csv')
+print(data)
 
 # Filter the data based on the desired MODEs
 data = data[data['MODE'].isin(include)]
