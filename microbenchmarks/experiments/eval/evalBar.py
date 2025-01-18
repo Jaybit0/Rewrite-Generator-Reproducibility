@@ -3,11 +3,11 @@ import numpy as np
 import pandas as pd
 import matplotlib.ticker as ticker
 
-test_name = 'transposeMMSkew'
+test_name = 'dynamicAddScalar'
 sparsity = 1
-rows = 4000
+rows = 10000000
 # Either rows or sparsity
-var_rows = False 
+var_rows = True 
 save = True
 
 # Sort the data based on the desired order

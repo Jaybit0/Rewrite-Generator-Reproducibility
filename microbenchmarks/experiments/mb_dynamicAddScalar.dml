@@ -35,7 +35,7 @@ for (i in 1:benchmark_runs) {
     total_time += (t1-t)/1000000
 }
 
-print(as.scalar(R[1,1]))
+print(lineage(R))
 
 print("==========")
 print("Result: " + total_time/benchmark_runs)
