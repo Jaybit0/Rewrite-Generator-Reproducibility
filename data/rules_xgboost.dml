@@ -1,7 +1,0 @@
-::RULE
-MATRIX:tmp78731
-FLOAT:tmp32523,i_process_item
-
-/(*(tmp78731,tmp32523),i_process_item)
-=>
-*(/(tmp32523,i_process_item),tmp78731)
