@@ -3,9 +3,9 @@ import numpy as np
 import pandas as pd
 import matplotlib.ticker as ticker
 
-test_name = 'dynamicAddScalar'
+test_name = 'dynamicTransposeEqualsSquared'
 sparsity = 1
-rows = 10000000
+rows = 8000
 # Either rows or sparsity
 var_rows = True 
 save = True

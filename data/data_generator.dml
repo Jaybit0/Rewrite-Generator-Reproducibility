@@ -3,8 +3,8 @@ sparsities[1,1] = 0.1
 #sparsities[2,1] = 0.001
 #sparsities[3,1] = 0.0001
 
-rows = 4000
-cols = 4000
+rows = 8000
+cols = 8000
 ninstances = 3
 
 for (i in 1:nrow(sparsities)) {
